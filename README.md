@@ -43,11 +43,99 @@ The project follows a Hexagonal (Ports and Adapters) Architecture:
 └── README.md                   # Project Documentation
 ```
 
-## Prerequisites
-- **Go 1.21+** installed.
-- **Ollama API Key**: Get one from [Ollama](https://ollama.com).
+## Quick Start (Recommended)
 
-## Installation
+### Download Pre-built Executable
+
+**No Go installation required!** Download the pre-built binary for your platform:
+
+| Platform | Download | Size |
+|----------|----------|------|
+| 🪟 **Windows (64-bit)** | [`generate-commit.exe`](./generate-commit.exe) | 8.4 MB |
+| 🍎 **Mac (Apple Silicon)** | [`generate-commit-mac-arm64`](./generate-commit-mac-arm64) | 8.0 MB |
+| 🍎 **Mac (Intel)** | [`generate-commit-mac-intel`](./generate-commit-mac-intel) | 8.4 MB |
+| 🐧 **Linux (64-bit)** | [`generate-commit-linux`](./generate-commit-linux) | 8.3 MB |
+
+### Setup Instructions
+
+#### Windows
+1. Download `generate-commit.exe`
+2. Open Command Prompt or PowerShell
+3. Set your API key:
+   ```cmd
+   set OLLAMA_API_KEY=your_api_key_here
+   ```
+4. Run the tool:
+   ```cmd
+   generate-commit.exe
+   ```
+
+#### Mac (Apple Silicon - M1/M2/M3)
+1. Download `generate-commit-mac-arm64`
+2. Make it executable:
+   ```bash
+   chmod +x generate-commit-mac-arm64
+   ```
+3. Set your API key:
+   ```bash
+   export OLLAMA_API_KEY="your_api_key_here"
+   ```
+4. Run the tool:
+   ```bash
+   ./generate-commit-mac-arm64
+   ```
+
+#### Mac (Intel)
+1. Download `generate-commit-mac-intel`
+2. Make it executable:
+   ```bash
+   chmod +x generate-commit-mac-intel
+   ```
+3. Set your API key:
+   ```bash
+   export OLLAMA_API_KEY="your_api_key_here"
+   ```
+4. Run the tool:
+   ```bash
+   ./generate-commit-mac-intel
+   ```
+
+#### Linux
+1. Download `generate-commit-linux`
+2. Make it executable:
+   ```bash
+   chmod +x generate-commit-linux
+   ```
+3. Set your API key:
+   ```bash
+   export OLLAMA_API_KEY="your_api_key_here"
+   ```
+4. Run the tool:
+   ```bash
+   ./generate-commit-linux
+   ```
+
+### Optional: Add to PATH
+
+For easier access, move the binary to your PATH:
+
+**Mac/Linux:**
+```bash
+sudo mv generate-commit-* /usr/local/bin/generate-commit
+```
+
+**Windows:**
+Move `generate-commit.exe` to a directory in your PATH (e.g., `C:\Windows\System32`)
+
+---
+
+## Build from Source
+
+### Prerequisites
+- **Go 1.21+** installed
+- **Ollama API Key**: Get one from [Ollama](https://ollama.com)
+
+### Installation Steps
 
 1. Clone the repository:
    ```bash
@@ -67,9 +155,9 @@ The project follows a Hexagonal (Ports and Adapters) Architecture:
 
 ## Usage
 
-1. **Set your API Key**:
+1. **Navigate to your git repository**:
    ```bash
-   export OLLAMA_API_KEY="your_api_key_here"
+   cd /path/to/your/project
    ```
 
 2. **Stage your changes**:
@@ -79,8 +167,32 @@ The project follows a Hexagonal (Ports and Adapters) Architecture:
 
 3. **Run the tool**:
    ```bash
-   ./generate-commit
+   ./generate-commit  # or just 'generate-commit' if in PATH
    ```
+
+4. **Review the AI-generated commit message** and use it for your commit!
+
+### Example Output
+
+**Single commit message (Cyan):**
+```
+Generating commit message...
+
+feat(auth): add OAuth2 login support
+```
+
+**Split suggestion (Yellow):**
+```
+Generating commit message...
+
+AI Suggestion (Split Changes):
+This diff contains multiple logical changes:
+1. Authentication module (OAuth2 implementation)
+2. Database schema updates (user table)
+3. UI changes (login form)
+
+Consider splitting into separate commits for better history.
+```
 
 ### Custom Rules
 To enforce specific rules (e.g., "Mention Jira ID"), create a file named `.git-commit-rules-for-ai` in the root of your repository.
