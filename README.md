@@ -9,13 +9,14 @@ Writing good commit messages is essential for maintaining a clean history and fa
 - **Automation**: Automate the process of reading git diffs and crafting commit messages.
 - **Consistency**: Enforce team conventions via custom rules.
 - **Intelligence**: Use advanced AI to analyze the *intent* of changes, suggesting splits for complex diffs.
-- **Speed**: Built with the Go Standard Library for zero-dependency overhead and fast execution.
+- **Speed**: Built with the Go Standard Library and go-git library for zero external binary dependencies and fast execution.
 
 ## Features
 - **Smart Diff Analysis**: Reads staged changes and context.
 - **Split Suggestions**: Detects if a diff contains multiple logical changes and suggests breaking them down (displayed in Yellow).
 - **Custom Rules**: Respects `.git-commit-rules-for-ai` in your repo root for team-specific guidelines.
 - **Conventional Commits**: Generates messages in the `<type>(<scope>): <description>` format.
+- **No External Dependencies**: Uses the go-git library - no git binary installation required.
 - **Hexagonal Architecture**: Clean, testable, and maintainable codebase.
 
 ## Directory Structure
@@ -34,7 +35,7 @@ The project follows a Hexagonal (Ports and Adapters) Architecture:
 │   │   ├── git_commit_rules.go             # Config Loader (.git-commit-rules-for-ai)
 │   │   └── git_commit_rules_test.go        # Unit tests
 │   ├── git/
-│   │   ├── client.go           # Git Command Wrapper
+│   │   ├── client.go           # Git Operations (using go-git library)
 │   │   └── client_test.go      # Integration/Unit tests
 │   └── app/
 │       ├── app.go              # Core Application Logic / Orchestrator
@@ -114,6 +115,8 @@ Move `generate-commit.exe` to a directory in your PATH (e.g., `C:\Windows\System
 ### Prerequisites
 - **Go 1.21+** installed
 - **Ollama API Key**: Get one from [Ollama](https://ollama.com)
+
+**Note**: The tool uses the `go-git` library and does not require the `git` binary to be installed on your system.
 
 ### Installation Steps
 
