@@ -31,8 +31,8 @@ archives:
     name_template: >-
       {{ .ProjectName }}-
       {{- if eq .Os "darwin" }}mac-{{ if eq .Arch "amd64" }}intel{{ else if eq .Arch "arm64" }}arm64{{ end }}
-      {{- else if eq .Os "windows" }}windows
-      {{- else }}{{ .Os }}{{ end }}
+      {{- else if eq .Os "windows" }}windows{{ if eq .Arch "arm64" }}-arm64{{ end }}
+      {{- else }}{{ .Os }}{{ if eq .Arch "arm64" }}-arm64{{ end }}{{ end }}
     files:
       - README.md
       - LICENSE*
