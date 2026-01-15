@@ -17,6 +17,8 @@ type Client interface {
 	IsInsideRepo() (bool, error)
 	HasStagedChanges() (bool, error)
 	GetStagedDiff() (string, error)
+	CommitWithMessage(message string) error
+	GetRepoRoot() (string, error)
 }
 
 // ClientImpl implements the Client interface using go-git
@@ -293,4 +295,23 @@ func (c *ClientImpl) GetStagedDiff() (string, error) {
 		return diff[:10000] + "\n...[TRUNCATED]", nil
 	}
 	return diff, nil
+}
+
+// CommitWithMessage executes git commit with the given message
+func (c *ClientImpl) CommitWithMessage(message string) error {
+	cmd := exec.Command("git", "commit", "-m", message)
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("failed to commit: %w", err)
+	}
+	return nil
+}
+
+// GetRepoRoot returns the root directory of the git repository
+func (c *ClientImpl) GetRepoRoot() (string, error) {
+	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
+	out, err := cmd.Output()
+	if err != nil {
+		return "", fmt.Errorf("failed to get repo root: %w", err)
+	}
+	return strings.TrimSpace(string(out)), nil
 }
